@@ -1,0 +1,69 @@
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
+import { Product } from './entities/product.entity';
+import { ProductsService } from './products.service';
+import { Float } from '@nestjs/graphql';
+import { Marketplace } from '../marketplaces/entities/marketplace.entity';
+import { MarketplacesService } from '../marketplaces/marketplaces.service';
+
+@Resolver(() => Product)
+export class ProductsResolver {
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly marketplacesService: MarketplacesService
+  ) {}
+
+  @Query(() => [Product])
+  async products(): Promise<Product[]> {
+    return this.productsService.findAll();
+  }
+
+  @Query(() => Product, { nullable: true })
+  async product(
+    @Args('sku', { type: () => String }) sku: string
+  ): Promise<Product | null> {
+    return this.productsService.findOne(sku);
+  }
+
+  @ResolveField(() => Marketplace)
+  async marketplace(@Parent() product: Product) {
+    return this.marketplacesService.findOne(product.marketplaceId);
+  }
+
+  @Mutation(() => Product)
+  async createProduct(
+    @Args('sku', { type: () => String }) sku: string,
+    @Args('name', { type: () => String }) name: string,
+    @Args('price', { type: () => Float }) price: number,
+    @Args('description', { type: () => String, nullable: true })
+    description: string | null,
+    @Args('marketplaceId', { type: () => String }) marketplaceId: string,
+    @Args('hasWarranty', { type: () => Boolean }) hasWarranty: boolean,
+    @Args('tags', { type: () => [String] }) tags: string[]
+  ): Promise<Product> {
+    return this.productsService.create({
+      sku,
+      name,
+      price,
+      description,
+      marketplaceId,
+      metadata: {
+        hasWarranty,
+        tags,
+      },
+    });
+  }
+
+  @Mutation(() => Boolean)
+  async deleteProduct(
+    @Args('sku', { type: () => String }) sku: string
+  ): Promise<boolean> {
+    return this.productsService.delete(sku);
+  }
+}

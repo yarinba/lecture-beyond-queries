@@ -1,0 +1,36 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Marketplace {
+  _id: ID!
+  name: String!
+}
+
+type ProductMetadata {
+  hasWarranty: Boolean!
+  tags: [String!]!
+}
+
+type Product {
+  sku: String!
+  name: String!
+  description: String
+  price: Float!
+  metadata: ProductMetadata!
+  marketplace: Marketplace!
+}
+
+type Query {
+  products: [Product!]!
+  product(sku: String!): Product
+  marketplaces: [Marketplace!]!
+  marketplace(id: ID!): Marketplace!
+}
+
+type Mutation {
+  createProduct(sku: String!, name: String!, price: Float!, description: String, marketplaceId: String!, hasWarranty: Boolean!, tags: [String!]!): Product!
+  deleteProduct(sku: String!): Boolean!
+  createMarketplace(name: String!): Marketplace!
+  removeMarketplace(id: ID!): Marketplace!
+}
