@@ -21,5 +21,5 @@ src: ./slides/5-cache-normalization.md
 ---
 
 ---
-src: ./slides/test.md
+src: ./slides/6-configure-cache.md
 ---
