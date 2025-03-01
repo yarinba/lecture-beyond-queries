@@ -1,43 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useQuery, useMutation, gql } from '@apollo/client';
 
-const GET_MARKETPLACES = gql`
-  query GetMarketplaces {
-    marketplaces {
-      _id
-      name
-    }
-  }
-`;
-
-const CREATE_MARKETPLACE = gql`
-  mutation CreateMarketplace($name: String!) {
-    createMarketplace(name: $name) {
-      _id
-      name
-    }
-  }
-`;
-
-const REMOVE_MARKETPLACE = gql`
-  mutation RemoveMarketplace($id: ID!) {
-    removeMarketplace(id: $id) {
-      _id
-    }
-  }
-`;
+import {
+  MarketplacesPageDocument,
+  useCreateMarketplaceMutation,
+  useMarketplacesPageQuery,
+  useRemoveMarketplaceMutation,
+} from './operations.generated';
 
 export function Marketplaces() {
   const [newMarketplaceName, setNewMarketplaceName] = useState('');
-  const { loading, error, data } = useQuery(GET_MARKETPLACES);
 
-  const [createMarketplace] = useMutation(CREATE_MARKETPLACE, {
-    refetchQueries: [{ query: GET_MARKETPLACES }],
+  const { loading, error, data } = useMarketplacesPageQuery();
+
+  const [createMarketplace] = useCreateMarketplaceMutation({
+    refetchQueries: [{ query: MarketplacesPageDocument }],
   });
 
-  const [removeMarketplace] = useMutation(REMOVE_MARKETPLACE, {
-    refetchQueries: [{ query: GET_MARKETPLACES }],
+  const [removeMarketplace] = useRemoveMarketplaceMutation({
+    refetchQueries: [{ query: MarketplacesPageDocument }],
   });
 
   const handleSubmit = async (e: React.FormEvent) => {

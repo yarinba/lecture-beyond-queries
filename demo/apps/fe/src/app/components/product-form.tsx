@@ -1,32 +1,10 @@
 import { useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
 import { motion } from 'framer-motion';
 import { MarketplaceSelect } from './marketplace-select';
-
-const CREATE_PRODUCT = gql`
-  mutation CreateProduct(
-    $sku: String!
-    $name: String!
-    $price: Float!
-    $description: String
-    $marketplaceId: String!
-    $hasWarranty: Boolean!
-    $tags: [String!]!
-  ) {
-    createProduct(
-      sku: $sku
-      name: $name
-      price: $price
-      description: $description
-      marketplaceId: $marketplaceId
-      hasWarranty: $hasWarranty
-      tags: $tags
-    ) {
-      sku
-      name
-    }
-  }
-`;
+import {
+  ProductsDocument,
+  useCreateProductMutation,
+} from './operations.generated';
 
 interface ProductFormProps {
   onClose: () => void;
@@ -43,8 +21,8 @@ export function ProductForm({ onClose }: ProductFormProps) {
     tags: '',
   });
 
-  const [createProduct, { loading }] = useMutation(CREATE_PRODUCT, {
-    refetchQueries: ['GetProducts'],
+  const [createProduct, { loading }] = useCreateProductMutation({
+    refetchQueries: [{ query: ProductsDocument }],
   });
 
   const handleSubmit = async (e: React.FormEvent) => {

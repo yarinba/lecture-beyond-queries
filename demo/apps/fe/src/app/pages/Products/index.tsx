@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ProductList } from '../components/product-list';
-import { ProductForm } from '../components/product-form';
+import { ProductList } from '../../components/product-list';
+import { ProductForm } from '../../components/product-form';
 
 export function Products() {
   const [isAddingProduct, setIsAddingProduct] = useState(false);

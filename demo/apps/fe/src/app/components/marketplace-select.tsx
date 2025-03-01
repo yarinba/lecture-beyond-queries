@@ -1,13 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
-
-const GET_MARKETPLACES = gql`
-  query GetMarketplaces {
-    marketplaces {
-      _id
-      name
-    }
-  }
-`;
+import { useMarketplacesQuery } from './operations.generated';
 
 interface MarketplaceSelectProps {
   value: string;
@@ -15,7 +6,7 @@ interface MarketplaceSelectProps {
 }
 
 export function MarketplaceSelect({ value, onChange }: MarketplaceSelectProps) {
-  const { loading, error, data } = useQuery(GET_MARKETPLACES);
+  const { loading, error, data } = useMarketplacesQuery();
 
   if (loading) {
     return (
@@ -44,7 +35,7 @@ export function MarketplaceSelect({ value, onChange }: MarketplaceSelectProps) {
         <option value="" disabled>
           Select a marketplace
         </option>
-        {data.marketplaces.map((marketplace: any) => (
+        {data?.marketplaces.map((marketplace) => (
           <option
             key={marketplace._id}
             value={marketplace._id}

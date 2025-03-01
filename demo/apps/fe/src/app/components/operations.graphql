@@ -1,0 +1,50 @@
+query Marketplaces {
+  marketplaces {
+    _id
+    name
+  }
+}
+
+query Products {
+  products {
+    sku
+    name
+    price
+    description
+    metadata {
+      hasWarranty
+      tags
+    }
+    marketplace {
+      _id
+      name
+    }
+  }
+}
+
+mutation CreateProduct(
+  $sku: String!
+  $name: String!
+  $price: Float!
+  $description: String
+  $marketplaceId: String!
+  $hasWarranty: Boolean!
+  $tags: [String!]!
+) {
+  createProduct(
+    sku: $sku
+    name: $name
+    price: $price
+    description: $description
+    marketplaceId: $marketplaceId
+    hasWarranty: $hasWarranty
+    tags: $tags
+  ) {
+    sku
+    name
+  }
+}
+
+mutation DeleteProduct($sku: String!) {
+  deleteProduct(sku: $sku)
+}

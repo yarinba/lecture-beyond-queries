@@ -1,0 +1,19 @@
+query MarketplacesPage {
+  marketplaces {
+    _id
+    name
+  }
+}
+
+mutation CreateMarketplace($name: String!) {
+  createMarketplace(name: $name) {
+    _id
+    name
+  }
+}
+
+mutation RemoveMarketplace($id: ID!) {
+  removeMarketplace(id: $id) {
+    _id
+  }
+}

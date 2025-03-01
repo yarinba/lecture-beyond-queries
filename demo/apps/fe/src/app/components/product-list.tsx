@@ -1,35 +1,14 @@
-import { useQuery, gql, useMutation } from '@apollo/client';
 import { motion } from 'framer-motion';
-
-const GET_PRODUCTS = gql`
-  query GetProducts {
-    products {
-      sku
-      name
-      price
-      description
-      metadata {
-        hasWarranty
-        tags
-      }
-      marketplace {
-        _id
-        name
-      }
-    }
-  }
-`;
-
-const DELETE_PRODUCT = gql`
-  mutation DeleteProduct($sku: String!) {
-    deleteProduct(sku: $sku)
-  }
-`;
+import {
+  ProductsDocument,
+  useProductsQuery,
+  useDeleteProductMutation,
+} from './operations.generated';
 
 export function ProductList() {
-  const { loading, error, data } = useQuery(GET_PRODUCTS);
-  const [deleteProduct] = useMutation(DELETE_PRODUCT, {
-    refetchQueries: [{ query: GET_PRODUCTS }],
+  const { loading, error, data } = useProductsQuery();
+  const [deleteProduct] = useDeleteProductMutation({
+    refetchQueries: [{ query: ProductsDocument }],
   });
 
   if (loading) {
@@ -51,7 +30,7 @@ export function ProductList() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {data.products.map((product: any, index: number) => (
+      {data?.products.map((product, index) => (
         <motion.div
           key={product.sku}
           initial={{ opacity: 0, y: 20 }}
