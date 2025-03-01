@@ -80,7 +80,8 @@ export function ProductList() {
                     {product.name}
                   </h3>
                   <p className="text-sm text-gray-400">
-                    Description: {product.description}
+                    <span className="font-bold">Description:</span>{' '}
+                    {product.description}
                   </p>
                 </div>
                 <div className="flex space-x-2">
