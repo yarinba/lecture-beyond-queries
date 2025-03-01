@@ -1,0 +1,14 @@
+fragment ProductFields on Product {
+  sku
+  name
+  price
+  description
+  metadata {
+    hasWarranty
+    tags
+  }
+  marketplace {
+    _id
+    name
+  }
+}
