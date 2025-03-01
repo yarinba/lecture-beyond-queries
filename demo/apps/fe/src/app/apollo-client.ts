@@ -12,6 +12,9 @@ export const client = new ApolloClient({
               return description ?? '--- N/A ---';
             },
           },
+          metadata: {
+            merge: true,
+          },
         },
       },
     },
