@@ -19,23 +19,6 @@ export class ProductsResolver {
     private readonly marketplacesService: MarketplacesService
   ) {}
 
-  @Query(() => [Product])
-  async products(): Promise<Product[]> {
-    return this.productsService.findAll();
-  }
-
-  @Query(() => Product, { nullable: true })
-  async product(
-    @Args('sku', { type: () => String }) sku: string
-  ): Promise<Product | null> {
-    return this.productsService.findOne(sku);
-  }
-
-  @ResolveField(() => Marketplace)
-  async marketplace(@Parent() product: Product) {
-    return this.marketplacesService.findOne(product.marketplaceId);
-  }
-
   @Mutation(() => Product)
   async createProduct(
     @Args('sku', { type: () => String }) sku: string,
@@ -47,6 +30,9 @@ export class ProductsResolver {
     @Args('hasWarranty', { type: () => Boolean }) hasWarranty: boolean,
     @Args('tags', { type: () => [String] }) tags: string[]
   ): Promise<Product> {
+    // Simulate network latency
+    await new Promise((resolve) => setTimeout(resolve, 2500));
+
     return this.productsService.create({
       sku,
       name,
@@ -65,5 +51,25 @@ export class ProductsResolver {
     @Args('sku', { type: () => String }) sku: string
   ): Promise<boolean> {
     return this.productsService.delete(sku);
+  }
+
+  @Query(() => [Product])
+  async products(): Promise<Product[]> {
+    // Simulate network latency
+    await new Promise((resolve) => setTimeout(resolve, 2500));
+
+    return this.productsService.findAll();
+  }
+
+  @Query(() => Product, { nullable: true })
+  async product(
+    @Args('sku', { type: () => String }) sku: string
+  ): Promise<Product | null> {
+    return this.productsService.findOne(sku);
+  }
+
+  @ResolveField(() => Marketplace)
+  async marketplace(@Parent() product: Product) {
+    return this.marketplacesService.findOne(product.marketplaceId);
   }
 }
