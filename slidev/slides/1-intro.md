@@ -1,5 +1,5 @@
 ---
-class: text-center
+layout: cover
 highlighter: shiki
 lineNumbers: false
 info: |
@@ -10,6 +10,6 @@ drawings:
 css: unocss
 ---
 
-# Beyond Queries:
+# Beyond Queries
 
-## Apollo Client's Journey in State Management
+Apollo Client's Journey in State Management
