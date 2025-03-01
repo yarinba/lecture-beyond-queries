@@ -1,0 +1,16 @@
+query ProductBySku($sku: String!) {
+  product(sku: $sku) {
+    sku
+    name
+    price
+    description
+    metadata {
+      hasWarranty
+      tags
+    }
+    marketplace {
+      _id
+      name
+    }
+  }
+}
