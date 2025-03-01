@@ -2,7 +2,7 @@
 layout: center
 ---
 
-# Let's configure Apollo's cache!
+# 🫡 Let's configure Apollo's cache!
 
 <!--
 Demo Branches:

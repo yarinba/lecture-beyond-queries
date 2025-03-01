@@ -31,3 +31,7 @@ src: ./slides/7-local-state.md
 ---
 src: ./slides/8-interact-with-cache.md
 ---
+
+---
+src: ./slides/9-optimizations.md
+---
