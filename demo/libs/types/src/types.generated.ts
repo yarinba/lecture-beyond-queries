@@ -64,6 +64,7 @@ export type MutationUpdateProductNameArgs = {
 export type Product = {
   __typename?: 'Product';
   description?: Maybe<Scalars['String']['output']>;
+  isInCart?: Maybe<Scalars['Boolean']['output']>;
   marketplace: Marketplace;
   metadata: ProductMetadata;
   name: Scalars['String']['output'];

@@ -11,4 +11,5 @@ fragment ProductFields on Product {
     _id
     name
   }
+  isInCart @client
 }

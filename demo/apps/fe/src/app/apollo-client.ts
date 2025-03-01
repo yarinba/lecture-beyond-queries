@@ -1,5 +1,17 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, makeVar } from '@apollo/client';
 
+// Define the cart item type
+export interface CartItem {
+  sku: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+// Create reactive variables
+export const cartItemsVar = makeVar<CartItem[]>([]);
+
+// Create the Apollo client
 export const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
   cache: new InMemoryCache({
@@ -26,6 +38,13 @@ export const client = new ApolloClient({
           },
           metadata: {
             merge: true,
+          },
+          isInCart: {
+            read(_, { readField }) {
+              const sku = readField('sku');
+              if (typeof sku !== 'string') return false;
+              return cartItemsVar().some((item) => item.sku === sku);
+            },
           },
         },
       },

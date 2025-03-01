@@ -399,6 +399,18 @@
             "deprecationReason": null
           },
           {
+            "name": "isInCart",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "marketplace",
             "description": null,
             "args": [],
@@ -1598,6 +1610,15 @@
       }
     ],
     "directives": [
+      {
+        "name": "client",
+        "description": null,
+        "isRepeatable": false,
+        "locations": [
+          "FIELD"
+        ],
+        "args": []
+      },
       {
         "name": "deprecated",
         "description": "Marks an element of a GraphQL schema as no longer supported.",

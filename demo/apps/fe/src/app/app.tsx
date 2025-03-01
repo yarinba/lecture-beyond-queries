@@ -11,6 +11,7 @@ import { Products } from './pages/products';
 import { Marketplaces } from './pages/marketplaces';
 import { Home } from './pages/home';
 import { ProductSearch } from './pages/product-search';
+import { Cart } from './components/cart';
 
 function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
   const location = useLocation();
@@ -53,6 +54,7 @@ export function App() {
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
+                  <Cart />
                   <button className="px-4 py-1.5 text-sm text-white/80 hover:text-white transition-colors duration-200">
                     Documentation
                   </button>

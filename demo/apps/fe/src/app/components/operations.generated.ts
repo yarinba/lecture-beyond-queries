@@ -12,7 +12,7 @@ export type MarketplacesQuery = { __typename?: 'Query', marketplaces: Array<{ __
 export type ProductsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type ProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', sku: string, name: string, price: number, description?: string | null, metadata: { __typename?: 'ProductMetadata', hasWarranty: boolean, tags: Array<string> }, marketplace: { __typename?: 'Marketplace', _id: string, name: string } }> };
+export type ProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', sku: string, name: string, price: number, description?: string | null, isInCart?: boolean | null, metadata: { __typename?: 'ProductMetadata', hasWarranty: boolean, tags: Array<string> }, marketplace: { __typename?: 'Marketplace', _id: string, name: string } }> };
 
 export type CreateProductMutationVariables = Types.Exact<{
   sku: Types.Scalars['String']['input'];
@@ -25,7 +25,7 @@ export type CreateProductMutationVariables = Types.Exact<{
 }>;
 
 
-export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', sku: string, name: string, price: number, description?: string | null, metadata: { __typename?: 'ProductMetadata', hasWarranty: boolean, tags: Array<string> }, marketplace: { __typename?: 'Marketplace', _id: string, name: string } } };
+export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', sku: string, name: string, price: number, description?: string | null, isInCart?: boolean | null, metadata: { __typename?: 'ProductMetadata', hasWarranty: boolean, tags: Array<string> }, marketplace: { __typename?: 'Marketplace', _id: string, name: string } } };
 
 export type UpdateProductNameMutationVariables = Types.Exact<{
   sku: Types.Scalars['String']['input'];
