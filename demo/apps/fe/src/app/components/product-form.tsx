@@ -21,14 +21,12 @@ export function ProductForm({ onClose }: ProductFormProps) {
     tags: '',
   });
 
-  const [createProduct, { loading }] = useCreateProductMutation({
-    refetchQueries: [{ query: ProductsDocument }],
-  });
+  const [createProduct, { loading }] = useCreateProductMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const productInput = {
+    const input = {
       ...formData,
       price: parseFloat(formData.price),
       tags: formData.tags.split(',').map((tag) => tag.trim()),
@@ -36,7 +34,8 @@ export function ProductForm({ onClose }: ProductFormProps) {
 
     try {
       await createProduct({
-        variables: productInput,
+        variables: input,
+        refetchQueries: [ProductsDocument],
       });
       onClose();
     } catch (error) {
