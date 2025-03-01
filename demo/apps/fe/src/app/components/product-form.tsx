@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MarketplaceSelect } from './marketplace-select';
-import {
-  ProductsDocument,
-  useCreateProductMutation,
-} from './operations.generated';
+import { useCreateProductMutation } from './operations.generated';
+import { ProductFieldsFragmentDoc } from './fragments.generated';
 
 interface ProductFormProps {
   onClose: () => void;
@@ -35,7 +33,21 @@ export function ProductForm({ onClose }: ProductFormProps) {
     try {
       await createProduct({
         variables: input,
-        refetchQueries: [ProductsDocument],
+        update: (cache, { data }) => {
+          if (!data) return;
+
+          const newProduct = cache.writeFragment({
+            id: cache.identify(data.createProduct),
+            fragment: ProductFieldsFragmentDoc,
+            data: data.createProduct,
+          });
+
+          cache.modify({
+            fields: {
+              products: (existingProducts) => [...existingProducts, newProduct],
+            },
+          });
+        },
       });
       onClose();
     } catch (error) {
