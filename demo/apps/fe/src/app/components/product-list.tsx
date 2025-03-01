@@ -79,7 +79,9 @@ export function ProductList() {
                   <h3 className="text-lg font-medium text-white group-hover:text-blue-400 transition-colors">
                     {product.name}
                   </h3>
-                  <p className="text-sm text-gray-400">{product.description}</p>
+                  <p className="text-sm text-gray-400">
+                    Description: {product.description}
+                  </p>
                 </div>
                 <div className="flex space-x-2">
                   <button

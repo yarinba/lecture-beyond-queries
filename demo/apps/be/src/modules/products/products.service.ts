@@ -18,7 +18,6 @@ export class ProductsService {
   }
 
   async create(input: Product): Promise<Product> {
-    console.log(input);
     return this.productModel.create(input);
   }
 

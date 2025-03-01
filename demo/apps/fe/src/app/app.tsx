@@ -10,6 +10,7 @@ import { client } from './apollo-client';
 import { Products } from './pages/products';
 import { Marketplaces } from './pages/marketplaces';
 import { Home } from './pages/home';
+import { ProductSearch } from './pages/product-search';
 
 function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
   const location = useLocation();
@@ -48,6 +49,7 @@ export function App() {
                   <div className="flex space-x-1">
                     <NavLink to="/products">Products</NavLink>
                     <NavLink to="/marketplaces">Marketplaces</NavLink>
+                    <NavLink to="/product-search">Product Search</NavLink>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -67,6 +69,7 @@ export function App() {
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
               <Route path="/marketplaces" element={<Marketplaces />} />
+              <Route path="/product-search" element={<ProductSearch />} />
             </Routes>
           </main>
         </div>
