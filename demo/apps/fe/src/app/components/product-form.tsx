@@ -31,8 +31,27 @@ export function ProductForm({ onClose }: ProductFormProps) {
     };
 
     try {
-      await createProduct({
+      createProduct({
         variables: input,
+        optimisticResponse: {
+          createProduct: {
+            __typename: 'Product',
+            sku: input.sku,
+            name: input.name,
+            price: input.price,
+            description: input.description,
+            marketplace: {
+              __typename: 'Marketplace',
+              _id: input.marketplaceId,
+              name: 'APAC',
+            },
+            metadata: {
+              __typename: 'ProductMetadata',
+              hasWarranty: input.hasWarranty,
+              tags: input.tags,
+            },
+          },
+        },
         update: (cache, { data }) => {
           if (!data) return;
 
