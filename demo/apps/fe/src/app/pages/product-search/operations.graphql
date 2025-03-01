@@ -6,7 +6,6 @@ query ProductBySku($sku: String!) {
     description
     metadata {
       hasWarranty
-      tags
     }
     marketplace {
       _id

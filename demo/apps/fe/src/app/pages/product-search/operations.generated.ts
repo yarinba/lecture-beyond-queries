@@ -8,7 +8,7 @@ export type ProductBySkuQueryVariables = Types.Exact<{
 }>;
 
 
-export type ProductBySkuQuery = { __typename?: 'Query', product?: { __typename?: 'Product', sku: string, name: string, price: number, description?: string | null, metadata: { __typename?: 'ProductMetadata', hasWarranty: boolean, tags: Array<string> }, marketplace: { __typename?: 'Marketplace', _id: string, name: string } } | null };
+export type ProductBySkuQuery = { __typename?: 'Query', product?: { __typename?: 'Product', sku: string, name: string, price: number, description?: string | null, metadata: { __typename?: 'ProductMetadata', hasWarranty: boolean }, marketplace: { __typename?: 'Marketplace', _id: string, name: string } } | null };
 
 
 export const ProductBySkuDocument = gql`
@@ -20,7 +20,6 @@ export const ProductBySkuDocument = gql`
     description
     metadata {
       hasWarranty
-      tags
     }
     marketplace {
       _id
