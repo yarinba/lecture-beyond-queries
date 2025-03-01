@@ -11,6 +11,7 @@ import { ProductsService } from './products.service';
 import { Float } from '@nestjs/graphql';
 import { Marketplace } from '../marketplaces/entities/marketplace.entity';
 import { MarketplacesService } from '../marketplaces/marketplaces.service';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => Product)
 export class ProductsResolver {
@@ -44,6 +45,23 @@ export class ProductsResolver {
         tags,
       },
     });
+  }
+
+  @Mutation(() => Product)
+  async updateProductName(
+    @Args('sku', { type: () => String }) sku: string,
+    @Args('name', { type: () => String }) name: string
+  ): Promise<Product | null> {
+    const updatedProduct = await this.productsService.updateProductName(
+      sku,
+      name
+    );
+
+    if (!updatedProduct) {
+      throw new NotFoundException('Product not found');
+    }
+
+    return updatedProduct;
   }
 
   @Mutation(() => Boolean)

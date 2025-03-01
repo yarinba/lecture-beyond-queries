@@ -30,6 +30,7 @@ type Query {
 
 type Mutation {
   createProduct(sku: String!, name: String!, price: Float!, description: String, marketplaceId: String!, hasWarranty: Boolean!, tags: [String!]!): Product!
+  updateProductName(sku: String!, name: String!): Product!
   deleteProduct(sku: String!): Boolean!
   createMarketplace(name: String!): Marketplace!
   removeMarketplace(id: ID!): Marketplace!

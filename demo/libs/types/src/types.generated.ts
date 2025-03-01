@@ -26,6 +26,7 @@ export type Mutation = {
   createProduct: Product;
   deleteProduct: Scalars['Boolean']['output'];
   removeMarketplace: Marketplace;
+  updateProductName: Product;
 };
 
 
@@ -52,6 +53,12 @@ export type MutationDeleteProductArgs = {
 
 export type MutationRemoveMarketplaceArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateProductNameArgs = {
+  name: Scalars['String']['input'];
+  sku: Scalars['String']['input'];
 };
 
 export type Product = {

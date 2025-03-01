@@ -45,6 +45,13 @@ mutation CreateProduct(
   }
 }
 
+mutation UpdateProductName($sku: String!, $name: String!) {
+  updateProductName(sku: $sku, name: $name) {
+    sku
+    name
+  }
+}
+
 mutation DeleteProduct($sku: String!) {
   deleteProduct(sku: $sku)
 }

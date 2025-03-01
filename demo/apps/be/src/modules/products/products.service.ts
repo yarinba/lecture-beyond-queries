@@ -22,6 +22,13 @@ export class ProductsService {
     return this.productModel.create(input);
   }
 
+  async updateProductName(sku: string, name: string): Promise<Product | null> {
+    const updatedProduct = await this.productModel
+      .findOneAndUpdate({ sku }, { name }, { new: true })
+      .exec();
+    return updatedProduct;
+  }
+
   async delete(sku: string): Promise<boolean> {
     const result = await this.productModel.deleteOne({ sku }).exec();
     return result.deletedCount === 1;

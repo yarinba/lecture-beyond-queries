@@ -26,6 +26,14 @@ export type CreateProductMutationVariables = Types.Exact<{
 
 export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', sku: string, name: string } };
 
+export type UpdateProductNameMutationVariables = Types.Exact<{
+  sku: Types.Scalars['String']['input'];
+  name: Types.Scalars['String']['input'];
+}>;
+
+
+export type UpdateProductNameMutation = { __typename?: 'Mutation', updateProductName: { __typename?: 'Product', sku: string, name: string } };
+
 export type DeleteProductMutationVariables = Types.Exact<{
   sku: Types.Scalars['String']['input'];
 }>;
@@ -172,6 +180,41 @@ export function useCreateProductMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateProductMutationHookResult = ReturnType<typeof useCreateProductMutation>;
 export type CreateProductMutationResult = Apollo.MutationResult<CreateProductMutation>;
 export type CreateProductMutationOptions = Apollo.BaseMutationOptions<CreateProductMutation, CreateProductMutationVariables>;
+export const UpdateProductNameDocument = gql`
+    mutation UpdateProductName($sku: String!, $name: String!) {
+  updateProductName(sku: $sku, name: $name) {
+    sku
+    name
+  }
+}
+    `;
+export type UpdateProductNameMutationFn = Apollo.MutationFunction<UpdateProductNameMutation, UpdateProductNameMutationVariables>;
+
+/**
+ * __useUpdateProductNameMutation__
+ *
+ * To run a mutation, you first call `useUpdateProductNameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProductNameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProductNameMutation, { data, loading, error }] = useUpdateProductNameMutation({
+ *   variables: {
+ *      sku: // value for 'sku'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useUpdateProductNameMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProductNameMutation, UpdateProductNameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProductNameMutation, UpdateProductNameMutationVariables>(UpdateProductNameDocument, options);
+      }
+export type UpdateProductNameMutationHookResult = ReturnType<typeof useUpdateProductNameMutation>;
+export type UpdateProductNameMutationResult = Apollo.MutationResult<UpdateProductNameMutation>;
+export type UpdateProductNameMutationOptions = Apollo.BaseMutationOptions<UpdateProductNameMutation, UpdateProductNameMutationVariables>;
 export const DeleteProductDocument = gql`
     mutation DeleteProduct($sku: String!) {
   deleteProduct(sku: $sku)
