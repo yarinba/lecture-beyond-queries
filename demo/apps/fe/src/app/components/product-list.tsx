@@ -108,6 +108,9 @@ export function ProductList() {
                     onClick={() =>
                       deleteProduct({
                         variables: { sku: product.sku },
+                        update: (cache) => {
+                          cache.evict({ id: cache.identify(product) });
+                        },
                       })
                     }
                     className="text-gray-400 hover:text-red-400 transition-colors duration-200"
