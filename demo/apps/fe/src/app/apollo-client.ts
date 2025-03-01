@@ -6,6 +6,13 @@ export const client = new ApolloClient({
     typePolicies: {
       Product: {
         keyFields: ['sku'],
+        fields: {
+          description: {
+            read(description) {
+              return description ?? '--- N/A ---';
+            },
+          },
+        },
       },
     },
   }),
