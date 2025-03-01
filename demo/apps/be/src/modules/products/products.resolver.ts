@@ -38,7 +38,7 @@ export class ProductsResolver {
       sku,
       name,
       price,
-      description,
+      description: description ?? null,
       marketplaceId,
       metadata: {
         hasWarranty,
