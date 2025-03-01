@@ -7,18 +7,7 @@ query Marketplaces {
 
 query Products {
   products {
-    sku
-    name
-    price
-    description
-    metadata {
-      hasWarranty
-      tags
-    }
-    marketplace {
-      _id
-      name
-    }
+    ...ProductFields
   }
 }
 
@@ -40,8 +29,7 @@ mutation CreateProduct(
     hasWarranty: $hasWarranty
     tags: $tags
   ) {
-    sku
-    name
+    ...ProductFields
   }
 }
 

@@ -1,6 +1,7 @@
 import * as Types from '@demo/types';
 
 import { gql } from '@apollo/client';
+import { ProductFieldsFragmentDoc } from './fragments.generated';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type MarketplacesQueryVariables = Types.Exact<{ [key: string]: never; }>;
@@ -24,7 +25,7 @@ export type CreateProductMutationVariables = Types.Exact<{
 }>;
 
 
-export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', sku: string, name: string } };
+export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', sku: string, name: string, price: number, description?: string | null, metadata: { __typename?: 'ProductMetadata', hasWarranty: boolean, tags: Array<string> }, marketplace: { __typename?: 'Marketplace', _id: string, name: string } } };
 
 export type UpdateProductNameMutationVariables = Types.Exact<{
   sku: Types.Scalars['String']['input'];
@@ -85,21 +86,10 @@ export type MarketplacesQueryResult = Apollo.QueryResult<MarketplacesQuery, Mark
 export const ProductsDocument = gql`
     query Products {
   products {
-    sku
-    name
-    price
-    description
-    metadata {
-      hasWarranty
-      tags
-    }
-    marketplace {
-      _id
-      name
-    }
+    ...ProductFields
   }
 }
-    `;
+    ${ProductFieldsFragmentDoc}`;
 
 /**
  * __useProductsQuery__
@@ -143,11 +133,10 @@ export const CreateProductDocument = gql`
     hasWarranty: $hasWarranty
     tags: $tags
   ) {
-    sku
-    name
+    ...ProductFields
   }
 }
-    `;
+    ${ProductFieldsFragmentDoc}`;
 export type CreateProductMutationFn = Apollo.MutationFunction<CreateProductMutation, CreateProductMutationVariables>;
 
 /**
